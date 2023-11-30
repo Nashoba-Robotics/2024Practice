@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.SecretSubsystem;
 
 /*
  * Create a program that plays 3 notes
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Each note should be played for 1 second.
  */
 public class MusicTime extends CommandBase{
-    Timer timer;
+    javax.management.timer.Timer timer;
 
     public MusicTime(){
         timer = new Timer();
@@ -25,12 +26,20 @@ public class MusicTime extends CommandBase{
     //TODO: Finish the program. (HINT: You will need to use flag variables)
     @Override
     public void initialize() {
-        
+        timer.start();
     }
 
     @Override
     public void execute() {
-        
+        if(timer.get() <= 1){
+            SecretSubsystem.getinstance().setSound(261.63);
+        }
+        else if(timer.get() <= 2){
+            SecretSubsystem.getinstance().setSound(293.66);
+        }
+        else if(timer.get <= 3){
+            SecretSubsystem.getinstance().setSound(329.63);
+        }
     }
 
     @Override
@@ -40,6 +49,6 @@ public class MusicTime extends CommandBase{
 
     @Override
     public boolean isFinished() {
-        return false;   //TODO: Consider changing this condition
+        return timer.get() > 3;   //TODO: Consider changing this condition
     }
 }
